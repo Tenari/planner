@@ -1,0 +1,13 @@
+{
+  "name": "plan",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "es5-shim": "^4.5.9",
+    "meteor-node-stubs": "~0.2.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  }
+}
