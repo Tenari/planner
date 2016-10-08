@@ -8,6 +8,14 @@ import Goal from './Goal.jsx';
  
 // App component - represents the whole app
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      goal: null,
+    }
+  }
+  
   handleSubmit(event) {
     event.preventDefault();
 
@@ -19,16 +27,25 @@ class App extends Component {
       steps: [{},{},{}],
       dueDate: null,
       createdAt: new Date(), // current time
+      root: true,
     });
 
     // Clear form
     ReactDOM.findDOMNode(this.refs.goalName).value = '';
   }
 
-  renderGoals() {
-    return this.props.goals.map((goal) => (
-      <Goal key={goal._id} goal={goal} />
-    ));
+  changeGoal(goal) {
+    this.setState({goal: goal});
+  }
+
+  renderGoal() {
+    let goal;
+    if (this.state.goal) {
+      goal = Goals.findOne(this.state.goal);
+    } else {
+      goal = this.props.goals[0];
+    }
+    return <Goal key={goal._id} goal={goal} />;
   }
 
   renderForm() {
@@ -42,7 +59,7 @@ class App extends Component {
     if (this.props.goals.length == 0) {
       stuff = this.renderForm();
     } else {
-      stuff = this.renderGoals();
+      stuff = this.renderGoal();
     }
     return (
       <div className="container">
